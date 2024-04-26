@@ -14,7 +14,7 @@ namespace SubscribersTelephoneCompany.Service
 {
     public class AbonentService : IAbonentService
     {
-        public string ConnectionString = @"Server=localhost\SQLExpress;Database=SubscribersTelephoneCompany;Trusted_Connection=True;Encrypt=false";
+        public string ConnectionString = @"Server=oldar;Database=dbSubscribersTelephoneCompany;Trusted_Connection=True;Encrypt=false";
         public IDbConnection Connection
         {
             get
@@ -23,7 +23,7 @@ namespace SubscribersTelephoneCompany.Service
             }
         }
 
-        public List<AbonentDto> GetAbonentListAsync()
+        public List<AbonentDto> GetAbonentList()
         {
             using (IDbConnection dbConnection = Connection)
             {
@@ -45,7 +45,7 @@ namespace SubscribersTelephoneCompany.Service
             }
         }
 
-
+        
 
         public List<StreetDto> GetStreetAbonent()
         {
@@ -81,10 +81,14 @@ namespace SubscribersTelephoneCompany.Service
             {"Мобильный тел.", "MobilePhoneNumber"},
         };
 
-
-        public void ExportToCsv(ListView dgv, ICollection<AbonentDto> abonents)
+        /// <summary>
+        ///     
+        /// </summary>
+        /// <param name="lvAbonents"></param>
+        /// <param name="abonents"></param>
+        public void ExportToCsv(ListView lvAbonents, ICollection<AbonentDto> abonents)
         {
-            if (dgv == null)
+            if (lvAbonents == null)
             {
                 MessageBox.Show("ListView не инициализирован.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -100,7 +104,7 @@ namespace SubscribersTelephoneCompany.Service
                     using (var writer = new StreamWriter(dialog.FileName, false, Encoding.UTF8))
                     using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = "," }))
                     {
-                        var gridView = dgv.View as GridView;
+                        var gridView = lvAbonents.View as GridView;
                         if (gridView != null)
                         {
                             foreach (var column in gridView.Columns)

@@ -41,7 +41,7 @@
                          Grid.Row="0"
                          Margin="8"
                          Width="200"
-                         Content="Улицы"
+                         Content="Поиск"
                          FontSize="16"
                          >
                 </Button>
@@ -70,17 +70,20 @@
             </Grid>
 
             <ListView
-                        Grid.Row="1"
-                        ItemsSource="{Binding AllAbonents}"
-                        Name="dgv"
-                        >
+                Grid.Row="1"
+                ItemsSource="{Binding AllAbonents}"
+                Name="lvAbonents"
+                GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler"
+                        
+                >
                 <ListView.View>
                     <GridView>
+
                         <GridViewColumn
                                     Header="Имя"
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding FirstName}">
-                        </GridViewColumn>
+                                    DisplayMemberBinding="{Binding FirstName}"/>
+
                         <GridViewColumn
                                     Header="Фамилия"
                                     Width="100px"
@@ -108,7 +111,7 @@
                         <GridViewColumn
                                     Header="Мобильный тел."
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding MiddleName}"/>
+                                    DisplayMemberBinding="{Binding MobilePhoneNumber}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

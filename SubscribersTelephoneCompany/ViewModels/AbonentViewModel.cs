@@ -25,8 +25,8 @@ namespace SubscribersTelephoneCompany.ViewModels
     {
 
         private ObservableCollection<AbonentDto> _allAbonents;
-        private readonly AbonentService abonentService = new AbonentService();
-        private ListView _dgv;
+        private readonly IAbonentService _abonentService;
+        private ListView _lvAbonents;
 
         public ObservableCollection<AbonentDto> AllAbonents { get => _allAbonents; set => this.RaiseAndSetIfChanged(ref _allAbonents, value); }
 
@@ -35,11 +35,11 @@ namespace SubscribersTelephoneCompany.ViewModels
 
         }
 
-        public AbonentViewModel(ListView dgv)
+        public AbonentViewModel(ListView lvAbonents, IAbonentService abonentService)
         {
-            _dgv = dgv;
-
-            List<AbonentDto> abonents = abonentService.GetAbonentListAsync();
+            _lvAbonents = lvAbonents;
+            _abonentService = abonentService;
+            List<AbonentDto> abonents = _abonentService.GetAbonentList();
 
             AllAbonents = new ObservableCollection<AbonentDto>(abonents);
         }
@@ -48,13 +48,13 @@ namespace SubscribersTelephoneCompany.ViewModels
 
         public ReactiveCommand<Object, Unit> ExportToCsv => ReactiveCommand.Create<object>(o =>
         {
-            abonentService.ExportToCsv(_dgv, AllAbonents);
+            _abonentService.ExportToCsv(_lvAbonents, AllAbonents);
         });
 
         public ReactiveCommand<Object, Unit> OpenStreetWindow => ReactiveCommand.Create<object>(o =>
         { 
             List<StreetDto> streets = new List<StreetDto>();
-            streets = abonentService.GetStreetAbonent();
+            streets = _abonentService.GetStreetAbonent();
 
             var streetWindow = new StreetsServedWindow(streets);
             streetWindow.Show();
