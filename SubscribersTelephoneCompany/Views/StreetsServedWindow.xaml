@@ -1,0 +1,37 @@
+﻿<Window x:Class="SubscribersTelephoneCompany.Views.StreetsServedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SubscribersTelephoneCompany.Views"
+        xmlns:vm="clr-namespace:SubscribersTelephoneCompany.ViewModels"
+        mc:Ignorable="d"
+        Title="Обслуживаемые улицы" 
+        Height="350"
+        Width="300"
+        ResizeMode="NoResize">
+    <Window.DataContext>
+        <vm:StreetViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <ListView
+            Grid.Row="1"
+            ItemsSource="{Binding Streets}"
+            Name="dgv"
+            >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Header="Название улицы"
+                        Width="135px"
+                        DisplayMemberBinding="{Binding Name}">
+                    </GridViewColumn>
+                    <GridViewColumn
+                        Header="Количество абонентов"
+                        Width="135px"
+                        DisplayMemberBinding="{Binding CountAbonent}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
