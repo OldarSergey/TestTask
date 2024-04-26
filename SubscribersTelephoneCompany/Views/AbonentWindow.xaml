@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:SubscribersTelephoneCompany.Views"
         xmlns:vm="clr-namespace:SubscribersTelephoneCompany.ViewModels"
         mc:Ignorable="d"
-        Title="Абонент" Height="450" Width="800">
+        Title="Абоненты компании" 
+        Height="450" 
+        Width="800"
+        ResizeMode="NoResize">
 
     <Window.DataContext>
         <vm:AbonentViewModel/>
@@ -43,6 +46,7 @@
                          Width="200"
                          Content="Поиск"
                          FontSize="16"
+                         Command="{Binding OpenSearchWindowCommand}"
                          >
                 </Button>
                 <Button
@@ -52,7 +56,7 @@
                         Width="200"
                         Content="Улицы"
                         FontSize="16"
-                        Command="{Binding OpenStreetWindow}"
+                        Command="{Binding OpenStreetWindowCommand}"
                         >   
                 </Button>
                 
@@ -64,54 +68,54 @@
                             Content="Выгрузить CSV"
                             FontSize="16"
                             Name="export"
-                            Command="{Binding ExportToCsv}">
+                            Command="{Binding ExportToCsvCommand}">
 
                 </Button>
             </Grid>
-
+            <TextBox Grid.Row="1" Text="{Binding SearchAbonent}"></TextBox>
             <ListView
                 Grid.Row="1"
-                ItemsSource="{Binding AllAbonents}"
+                ItemsSource="{Binding AllAbonents, UpdateSourceTrigger=PropertyChanged}"
                 Name="lvAbonents"
                 GridViewColumnHeader.Click="GridViewColumnHeaderClickedHandler"
                         
                 >
-                <ListView.View>
+                <ListView.View> 
                     <GridView>
 
                         <GridViewColumn
                                     Header="Имя"
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding FirstName}"/>
+                                    DisplayMemberBinding="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <GridViewColumn
                                     Header="Фамилия"
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding LastName}"/>
+                                    DisplayMemberBinding="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
                                     Header="Отчество"
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding MiddleName}"/>
+                                    DisplayMemberBinding="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
                                     Header="Улица"
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding AddressName}"/>
+                                    DisplayMemberBinding="{Binding AddressName, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
                                     Header="Номер дома"
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding HouseNumber}"/>
+                                    DisplayMemberBinding="{Binding HouseNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
                                     Header="Домашний тел."
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding HomePhoneNumber}"/>
+                                    DisplayMemberBinding="{Binding HomePhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
                                     Header="Рабочий тел."
                                     Width="90px"
-                                    DisplayMemberBinding="{Binding WorkPhoneNumber}"/>
+                                    DisplayMemberBinding="{Binding WorkPhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn
                                     Header="Мобильный тел."
                                     Width="100px"
-                                    DisplayMemberBinding="{Binding MobilePhoneNumber}"/>
+                                    DisplayMemberBinding="{Binding MobilePhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

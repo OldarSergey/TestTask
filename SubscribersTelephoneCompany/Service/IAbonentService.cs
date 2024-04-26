@@ -11,6 +11,8 @@ namespace SubscribersTelephoneCompany.Service;
 public interface IAbonentService
 {
     public List<AbonentDto> GetAbonentList();
+    public List<AbonentDto> SearchAbonentByNubmer();
     public List<StreetDto> GetStreetAbonent();
     public void ExportToCsv(ListView lvAbonents, ICollection<AbonentDto> abonents);
+
 } 

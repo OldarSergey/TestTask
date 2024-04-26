@@ -15,16 +15,16 @@ namespace SubscribersTelephoneCompany.Entities;
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         public string AddressName { get; set; }
-        public string HouseNumber { get; set; }
+        public int HouseNumber { get; set; }
         public string HomePhoneNumber { get; set; }
         public string WorkPhoneNumber { get; set; }
         public string MobilePhoneNumber { get; set; }
 
-        public AbonentDto() // Add this constructor
+        public AbonentDto() 
         {
         }
 
-        public AbonentDto(int abonentId, string firstName, string lastName, string middleName, string addressName, string houseNumber, string homePhoneNumber, string workPhoneNumber, string mobilePhoneNumber)
+        public AbonentDto(int abonentId, string firstName, string lastName, string middleName, string addressName, int houseNumber, string homePhoneNumber, string workPhoneNumber, string mobilePhoneNumber)
         {
             AbonentId = abonentId;
             FirstName = firstName;

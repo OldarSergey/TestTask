@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SubscribersTelephoneCompany.ViewModels;
 using SubscribersTelephoneCompany.Service;
 using System.ComponentModel;
+using SubscribersTelephoneCompany.Entities;
 
 namespace SubscribersTelephoneCompany.Views
 {
@@ -22,19 +23,19 @@ namespace SubscribersTelephoneCompany.Views
     {
         private AbonentViewModel _viewModel;
         private readonly IAbonentService _abonentService;
-
         GridViewColumnHeader _lastHeaderClicked = null;
         ListSortDirection _lastDirection = ListSortDirection.Ascending;
         public AbonentWindow(IAbonentService abonentService)
         {
+
             InitializeComponent();
+
             _abonentService = abonentService;
-            _viewModel = new AbonentViewModel(lvAbonents, abonentService); // передаем dgv в конструктор AbonentViewModel
+            _viewModel = new AbonentViewModel(lvAbonents, abonentService); 
             DataContext = _viewModel;
         }
 
-        void GridViewColumnHeaderClickedHandler(object sender,
-                                           RoutedEventArgs e)
+        private void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
         {
             var headerClicked = e.OriginalSource as GridViewColumnHeader;
             ListSortDirection direction;
@@ -49,14 +50,8 @@ namespace SubscribersTelephoneCompany.Views
                     }
                     else
                     {
-                        if (_lastDirection == ListSortDirection.Ascending)
-                        {
-                            direction = ListSortDirection.Descending;
-                        }
-                        else
-                        {
-                            direction = ListSortDirection.Ascending;
-                        }
+                        direction = _lastDirection == ListSortDirection.Ascending ?
+                            ListSortDirection.Descending : ListSortDirection.Ascending;
                     }
 
                     var columnBinding = headerClicked.Column.DisplayMemberBinding as Binding;
@@ -67,15 +62,14 @@ namespace SubscribersTelephoneCompany.Views
                     if (direction == ListSortDirection.Ascending)
                     {
                         headerClicked.Column.HeaderTemplate =
-                          Resources["HeaderTemplateArrowUp"] as DataTemplate;
+                            Resources["HeaderTemplateArrowUp"] as DataTemplate;
                     }
                     else
                     {
                         headerClicked.Column.HeaderTemplate =
-                          Resources["HeaderTemplateArrowDown"] as DataTemplate;
+                            Resources["HeaderTemplateArrowDown"] as DataTemplate;
                     }
 
-                    // Remove arrow from previously sorted header
                     if (_lastHeaderClicked != null && _lastHeaderClicked != headerClicked)
                     {
                         _lastHeaderClicked.Column.HeaderTemplate = null;
@@ -86,17 +80,21 @@ namespace SubscribersTelephoneCompany.Views
                 }
             }
         }
+
         private void Sort(string sortBy, ListSortDirection direction)
         {
-            ICollectionView dataView =
-              CollectionViewSource.GetDefaultView(lvAbonents.ItemsSource);
-
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(lvAbonents.ItemsSource);
             dataView.SortDescriptions.Clear();
             SortDescription sd = new SortDescription(sortBy, direction);
             dataView.SortDescriptions.Add(sd);
             dataView.Refresh();
+
+            // Вызов метода GetSortedItems и получение отсортированного списка
         }
 
+       
     }
 
 }
+
+
