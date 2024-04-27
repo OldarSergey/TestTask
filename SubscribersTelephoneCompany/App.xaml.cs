@@ -17,18 +17,19 @@ using System.Windows.Shapes;
 
 namespace SubscribersTelephoneCompany
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private ServiceProvider serviceProvider;
+        private ServiceProvider _serviceProvider;
         public App()
         {
             ServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
-            serviceProvider = services.BuildServiceProvider();
+            _serviceProvider = services.BuildServiceProvider();
         }
+        /// <summary>
+        /// Внедряем в наши зависимости интерфейс IAbonentService 
+        /// </summary>
+        /// <param name="services">необходим для внедрения зависимостей</param>
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddScoped<IAbonentService, AbonentService>();
@@ -37,7 +38,7 @@ namespace SubscribersTelephoneCompany
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = serviceProvider.GetService<AbonentWindow>();
+            var mainWindow = _serviceProvider.GetService<AbonentWindow>();
             mainWindow.Show();
         }
     }

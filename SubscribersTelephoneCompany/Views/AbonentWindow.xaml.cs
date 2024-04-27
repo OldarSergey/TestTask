@@ -35,6 +35,7 @@ namespace SubscribersTelephoneCompany.Views
             DataContext = _viewModel;
         }
 
+        //метод для сортировки GridView
         private void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
         {
             var headerClicked = e.OriginalSource as GridViewColumnHeader;
@@ -88,8 +89,6 @@ namespace SubscribersTelephoneCompany.Views
             SortDescription sd = new SortDescription(sortBy, direction);
             dataView.SortDescriptions.Add(sd);
             dataView.Refresh();
-
-            // Вызов метода GetSortedItems и получение отсортированного списка
         }
 
        

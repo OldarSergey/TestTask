@@ -18,8 +18,9 @@ namespace SubscribersTelephoneCompany.ViewModels
             }
             set 
             { 
+                
                 _searchAbonent = value;
-                MessageBus.Current.SendMessage(value);
+                MessageBus.Current.SendMessage(value); //На каждое изменение SearchAbonent отправляем сообщение
             }
         }
     }

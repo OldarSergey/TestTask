@@ -23,10 +23,10 @@ namespace SubscribersTelephoneCompany.Views
         {
             InitializeComponent();
         }
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            
-            e.Handled = !int.TryParse(e.Text, out var number);
+            e.Handled = !int.TryParse(e.Text, out var number); //принимает только цифры
         }
 
     }

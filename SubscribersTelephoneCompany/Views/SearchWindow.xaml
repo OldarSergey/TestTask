@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:SubscribersTelephoneCompany.Views"
         xmlns:vm="clr-namespace:SubscribersTelephoneCompany.ViewModels"
         mc:Ignorable="d"
-        Title="Поиск" 
+        Title="Поиск по номеру" 
         Height="150" 
-        Width="200">
+        Width="200"
+        ResizeMode="NoResize">
     <Window.DataContext>
         <vm:SearchViewModel/>
     </Window.DataContext>
@@ -25,10 +26,5 @@
             MaxLength="12"
             Text="{Binding SearchAbonent, UpdateSourceTrigger=PropertyChanged}"
             PreviewTextInput="NumberValidationTextBox"/>
-       
-       
     </StackPanel>
-
-
-
 </Window>

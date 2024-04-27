@@ -13,7 +13,6 @@ namespace SubscribersTelephoneCompany.ViewModels
 {
     public class AbonentViewModel : ReactiveObject
     {
-
         private ObservableCollection<AbonentDto> _allAbonents;
         private readonly IAbonentService _abonentService;
         private ListView _lvAbonents;
@@ -42,7 +41,7 @@ namespace SubscribersTelephoneCompany.ViewModels
 
             AllAbonents = new ObservableCollection<AbonentDto>(abonents);
 
-            MessageBus.Current.Listen<string>().Subscribe(value =>
+            MessageBus.Current.Listen<string>().Subscribe(value =>  //подсписываемся на получение сообщения
             {
                 // Обновление абонента при получении сообщения
                 SearchAbonent = value;
@@ -81,17 +80,29 @@ namespace SubscribersTelephoneCompany.ViewModels
             streetWindow.Show();
 
         });
+
+
+        /// <summary>
+        /// открываем модальное окно "Обслуживаемые улицы"
+        /// </summary>
         public ReactiveCommand<Object, Unit> OpenSearchWindowCommand => ReactiveCommand.Create<object>(o =>
         {
             var searchWindow = new SearchWindow();
             searchWindow.Show();
         });
+
+        /// <summary>
+        /// открываем модальное окно "Поиск"
+        /// </summary>
         public ReactiveCommand<Object, Unit> SearchAbonentCommand => ReactiveCommand.Create<object>(o =>
         {
             var searchWindow = new SearchWindow();
             searchWindow.Show();
         });
 
+        /// <summary>
+        /// SearchAbonent - критерий поиска. Фильтруем наш список по этому полю и перезаписываем список
+        /// </summary>
         private void UpdateList()
         {
             if (_abonentService != null)

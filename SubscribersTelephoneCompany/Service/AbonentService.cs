@@ -84,7 +84,7 @@ namespace SubscribersTelephoneCompany.Service
 
 
         /// <summary>
-        /// данная коллекция нужна для сапостовления английский и русских слов
+        /// данная коллекция нужна для сопоставления английский и русских слов
         /// </summary>
         readonly Dictionary<string, string> propertyMappings = new Dictionary<string, string>
         {
@@ -168,27 +168,6 @@ namespace SubscribersTelephoneCompany.Service
 
         }
 
-        public List<AbonentDto> SearchAbonentByNubmer()
-        {
-            using (IDbConnection dbConnection = Connection)
-            {
-                var query = """
-                    SELECT 
-                        s.StreetName as Name,
-                        COUNT(a.Id) AS CountAbonent
-                    FROM
-                        Streets s 
-                        LEFT JOIN Address ad ON s.StreetName = ad.Name
-                        LEFT JOIN Abonent a ON ad.AbonentId = a.Id
-                    GROUP BY
-                        s.StreetName
-                    ORDER BY
-                        s.StreetName;";
-                    """;
-                dbConnection.Open();
-
-                return dbConnection.Query<AbonentDto>(query).ToList();
-            }
-        }
+        
     }
 }
